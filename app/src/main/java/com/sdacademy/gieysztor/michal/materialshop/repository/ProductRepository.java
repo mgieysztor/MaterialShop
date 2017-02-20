@@ -44,4 +44,11 @@ public class ProductRepository implements ProductRepositoryInterface {
 
         return new ArrayList<>(mProducts.values());
     }
+
+    @Override
+    public Product getProduct(int productId) {
+        return mProducts.get(productId);
+    }
+
+
 }

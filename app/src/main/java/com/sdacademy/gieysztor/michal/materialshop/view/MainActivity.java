@@ -1,11 +1,16 @@
 package com.sdacademy.gieysztor.michal.materialshop.view;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.sdacademy.gieysztor.michal.materialshop.R;
 import com.sdacademy.gieysztor.michal.materialshop.model.Product;
@@ -18,6 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements ProductCardView.ProductCardViewInterface {
 
@@ -26,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements ProductCardView.P
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+
+    @BindView(R.id.activity_main)
+    View mActivityMain;
 
     private ProductRepositoryInterface mProductRepository = ProductRepository.getInstance();
 
@@ -41,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements ProductCardView.P
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -49,20 +58,40 @@ public class MainActivity extends AppCompatActivity implements ProductCardView.P
         return super.onOptionsItemSelected(item);
     }
 
-
+//    @Override
+//    public void onBackPressed() {
+//        new AlertDialog.Builder(this)
+//                .setTitle("Wyjście")
+//                .setMessage("Czy na pewno chcesz wyj sc z aplikacji?")
+//                .setPositiveButton(R)
+//
+//        super.onBackPressed();
+//    }
 
     @Override
     public void onProductClicked(Product product) {
-        Intent intent = new Intent(this,ProductDetailsActivity.class);
-        intent.putExtra(ProductDetailsActivity.INTENT_PRODUCT_ID,product.getmId());
+        Intent intent = new Intent(this, ProductDetailsActivity.class);
+        intent.putExtra(ProductDetailsActivity.INTENT_PRODUCT_ID, product.getmId());
         startActivity(intent);
         Log.d("Shop", "Product clicked " + product.getmName());
+    }
 
-
+    @OnClick(R.id.add_new_product)
+    public void onAddProductClicked(View view) {
+//        Toast.makeText(this, "New product click", Toast.LENGTH_SHORT).show();
+        Snackbar.make(mActivityMain, "Brak internetu", Snackbar.LENGTH_LONG)
+                .setAction("Dodaj lokalnie", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addProductLocally();
+                    }
+                })
+                .show();
+        Log.d("Shop", "New product click");
 
     }
 
-    private void setupToolbar(){
+    private void setupToolbar() {
         setSupportActionBar(mToolbar);
         mToolbar.setTitle("Czas to pieniądz...");
         mToolbar.setSubtitle("SKLEP z zegarkami");
@@ -72,10 +101,17 @@ public class MainActivity extends AppCompatActivity implements ProductCardView.P
     private void displayData() {
         List<Product> products = mProductRepository.getProducts();
 
-        for (int i = 0; i <products.size() ; i++) {
+        for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             mProductCardViews.get(i).bindTo(product, this);
 
         }
     }
+    private void addProductLocally(){
+        Log.d("AddButtonLocally", "Kliknięto dodaj product lokalnie");
+        Toast.makeText(this, "New product click", Toast.LENGTH_SHORT).show();
+        AddProduct asdad = new AddProduct();
+        Intent intent = new Intent();
+        asdad.startActivity(intent);
+            }
 }

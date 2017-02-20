@@ -16,9 +16,14 @@
             </intent-filter>
         </activity>
 
+
         <activity android:name=".view.ProductDetailsActivity">
 
 
+
+        </activity>
+
+        <activity android:name=".view.AddProduct">
 
         </activity>
     </application>
