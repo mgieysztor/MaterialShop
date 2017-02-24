@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MaterialShop</string>
+    <string name="drawer_open">Otwarta Szuflada</string>
+    <string name="drawer_close">Szuflada zamknięta</string>
 </resources>

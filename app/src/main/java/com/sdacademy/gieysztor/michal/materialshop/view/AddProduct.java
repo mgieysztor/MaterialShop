@@ -12,14 +12,18 @@ import butterknife.ButterKnife;
  * Created by RENT on 2017-02-20.
  */
 
+
+
 public class AddProduct extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.activity_add_product);
+        setContentView(R.layout.activity_add_product2);
         ButterKnife.bind(this);
 
 
     }
+
+
 }
